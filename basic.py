@@ -157,7 +157,7 @@ class basic(object)
   # @param[in]  image   The image to process.
   # @param[out] imout   The processed image.
   
-  function imout = basic_pre(image)
+  function imout = apply(image)
   
     if (isempty(image) || self.numfuncs == 0) #FIX: equal test?
       imout = []
@@ -171,6 +171,16 @@ class basic(object)
           image = feval(methods{ii}{1}, image, methods{ii}{2}{:})
 
 
+  #================================ post ===============================
+  #
+  # @brief  Execute post-processing of given image.
+  #
+  # @param[in]  image   The image to process.
+  # @param[out] imout   The processed image.
+  
+  def image = post(image)
+
+    # Default is to do nothing. Overload to get less "basic."
 
 
 
