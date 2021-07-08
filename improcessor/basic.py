@@ -82,6 +82,7 @@ import numpy as np
 import sys
 import inspect
 import types
+import operator
 
 # @classf improcessor
 class basic(object):
@@ -116,9 +117,7 @@ class basic(object):
 
       function_handle_list = [name for name, value in inspect.getmembers(sys.modules[__name__], predicate=is_local)]
 
-      if not isinstance(self.args[ind], str):
-        print(f'Please input a vadid string for the function.')
-      elif self.args[ind] in function_handle_list:
+      if self.args[ind] in function_handle_list:
         self.methods.append([self.args[ind], self.args[ind + 1]])
         self.numfuncs = self.numfuncs + 1
       elif self.args[ind] == 'clip' or self.args[ind] == 'scale' or self.args[ind] == 'scaleabout' :
@@ -128,10 +127,12 @@ class basic(object):
         self.methods.append(['builtin_normalize', []])
         self.numfuncs = self.numfuncs+1
       elif self.args[ind] in dir(cv2):
-          # Use OpenCV functions instead
-          self.methods.append([f'cv2.{self.args[ind]}', self.args[ind + 1]])
-          self.numfuncs = self.numfuncs + 1
-
+        # Use OpenCV functions instead
+        self.methods.append([f'cv2.{self.args[ind]}', self.args[ind + 1]])
+        self.numfuncs = self.numfuncs + 1
+      elif isinstance(self.args[ind], str):
+        self.methods.append([self.args[ind], self.args[ind + 1]])
+        self.numfuncs = self.numfuncs + 1
       # @todo:
       # The compiled function tests is ignored for now.
       #

@@ -22,17 +22,20 @@
 #
 import improcessor.basic as improcessor
 import cv2
+import numpy as np
 
 Image = cv2.imread('lena.png')
 newImage_list = []
 
-#==[1] Create the interface class
+#==[1] Create the interface class and apply the methods
 #
 improc = improcessor.basic('threshold',(127,255,cv2.THRESH_BINARY))
-
-#==[2] Apply the methods
-#
 newImage_list.append(improc.apply(Image)[1])
+
+#==[2] Create the interface class and apply the methods
+#
+improc = improcessor.basic('operator.ge',(127,))
+newImage_list.append(np.array(improc.apply(Image)).astype('uint8')*255)
 
 #==[3] Display the results
 #
