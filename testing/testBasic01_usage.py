@@ -26,9 +26,9 @@ import cv2
 Image = cv2.imread('lena.png')
 newImage_list = []
 
-#==[1] Create the interface class
+#==[1] Create the interface class, you can also try any opencv functions based on the needs
 #
-improc = improcessor.basic('imresize',(400,10),'clip',(2,100))
+improc = improcessor.basic('resize',(400,10),'clip',(2,100))
 
 #==[2] Apply the methods
 #

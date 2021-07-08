@@ -53,12 +53,12 @@
 #  one would initialize as:
 #
 #  import improcessor.basic as improcessor
-#  improcessor = improcessor.basic('imresize',(x,y))
+#  improcessor = improcessor.basic('resize',((x,y),))
 #
 #  To additionally clip the values to lie between 2 and 20 one would
 #  modify the initialization to be:
 #
-#  improcessor = improcessor.basic('imresize',(x,y),'clip',(2 20))
+#  improcessor = improcessor.basic('resize',((x,y),),'clip',((2 20),))
 #
 # NOTE:
 # 
@@ -79,6 +79,9 @@
 #=========================== improcessor.basic ===========================
 import cv2
 import numpy as np
+import sys
+import inspect
+import types
 
 # @classf improcessor
 class basic(object):
@@ -101,37 +104,42 @@ class basic(object):
     ind = 0
 
     while ind < lasti:
-      # Todo: 
-      # Not sure about the function of the codes below.
-      # 
+      # @todo:
+      # Currently, a function is implemented to check the locally defined functions.
+      #
       # if isa(varargin[ind],'function_handle')
       #   numfuncs = numfuncs+1
       #   methods{numfuncs} = {func2str(self.args{ind}), self.args{ind+1}}
-      # else:
+      #
+      def is_local(object):
+        return isinstance(object, types.FunctionType) and object.__module__ == __name__
 
-      if self.args[ind] == 'clip' or self.args[ind] == 'scale' or self.args[ind] == 'scaleabout' :
+      function_handle_list = [name for name, value in inspect.getmembers(sys.modules[__name__], predicate=is_local)]
+
+      if not isinstance(self.args[ind], str):
+        print(f'Please input a vadid string for the function.')
+      elif self.args[ind] in function_handle_list:
+        self.methods.append([self.args[ind], self.args[ind + 1]])
+        self.numfuncs = self.numfuncs + 1
+      elif self.args[ind] == 'clip' or self.args[ind] == 'scale' or self.args[ind] == 'scaleabout' :
         self.methods.append([f'builtin_{self.args[ind]}',self.args[ind+1]])
         self.numfuncs = self.numfuncs+1
       elif self.args[ind] == 'normalize':
-        self.methods.append(['_builtin_normalize', []])
+        self.methods.append(['builtin_normalize', []])
         self.numfuncs = self.numfuncs+1
-      else:
-        # Todo:
-        # Have something to do with the official build-in functions in MATLAB. See https://www.mathworks.com/help/matlab/ref/exist.html?searchHighlight=exist&s_tid=srchtitle
-        #
-        # if ismember(exist(self.args[ind]), [2 3 5 6]):
-        #   self.numfuncs = self.numfuncs+1
-        #   self.methods[self.numfuncs] = [self.args[ind], self.args[ind+1]]
+      elif self.args[ind] in dir(cv2):
+          # Use OpenCV functions instead
+          self.methods.append([f'cv2.{self.args[ind]}', self.args[ind + 1]])
+          self.numfuncs = self.numfuncs + 1
 
-        if self.args[ind] == 'imresize':
-          # FIXME:
-          # Use OpenCV functions instead?
-          self.methods.append(['cv2.resize', self.args[ind + 1]])
-          # self.methods.append(['imresize',self.args[ind+1]])
-          # self.__setattr__('imresize',cv2.resize)
-          self.numfuncs = self.numfuncs+1
-        elif not self.ignore_undef:
-          print(f'Unknown option (\' {self.args[ind]} \'), ignoring')
+      # @todo:
+      # The compiled function tests is ignored for now.
+      #
+      # if ismember(exist(self.args[ind]), [2 3 5 6]):
+      #   self.numfuncs = self.numfuncs+1
+      #   self.methods[self.numfuncs] = [self.args[ind], self.args[ind+1]]
+      elif not self.ignore_undef:
+        print(f'Unknown option (\' {self.args[ind]} \'), ignoring')
 
       ind = ind+2
 
@@ -183,12 +191,10 @@ class basic(object):
       for ii in range(self.numfuncs):
         if not self.methods[ii][1]:
           # w/o parameter
-          # imout = getattr(self, self.methods[ii][0])(imout)
           imout = eval(self.methods[ii][0])(imout)
         else:
           # w/ parameter
-          # imout = getattr(self, self.methods[ii][0])(imout, self.methods[ii][1])
-          imout = eval(self.methods[ii][0])(imout, self.methods[ii][1])
+          imout = eval(self.methods[ii][0])(imout, *self.methods[ii][1])
 
     return imout
 
@@ -204,15 +210,6 @@ class basic(object):
     # Default is to do nothing. Overload to get less "basic."
     
     raise NotImplementedError
-
-  # def _builtin_clip(self, img, limits):
-  #   return builtin_clip(img, limits)
-  # def _builtin_normalize(self, img, empty):
-  #   return builtin_normalize(img, empty)
-  # def _builtin_scale(self, img, scparms):
-  #   return builtin_clip(img, scparms)
-  # def _builtin_scaleabout(self, img, scparms):
-  #   return builtin_clip(img, scparms)
 
 #============================= builtin_clip ============================
 #
