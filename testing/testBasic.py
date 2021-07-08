@@ -44,7 +44,11 @@ newImage_list.append(improc.apply(Image))
 #
 newImage_list.append(improcessor.builtin_clip(Image, (2,20)))
 
-#==[5] Display the results
+#==[5] Disaplay the methods
+#
+print(improc.get('processing'))
+
+#==[6] Display the results
 #
 for i in range(len(newImage_list)):
   if newImage_list[i] is not None:
