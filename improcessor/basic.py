@@ -110,7 +110,7 @@ class basic(object):
       # else:
 
       if self.args[ind] == 'clip' or self.args[ind] == 'scale' or self.args[ind] == 'scaleabout' :
-        self.methods.append([f'_builtin_{self.args[ind]}',self.args[ind+1]])
+        self.methods.append([f'builtin_{self.args[ind]}',self.args[ind+1]])
         self.numfuncs = self.numfuncs+1
       elif self.args[ind] == 'normalize':
         self.methods.append(['_builtin_normalize', []])
@@ -126,8 +126,9 @@ class basic(object):
         if self.args[ind] == 'imresize':
           # FIXME:
           # Use OpenCV functions instead?
-          self.methods.append(['imresize',self.args[ind+1]])
-          self.__setattr__('imresize',cv2.resize)
+          self.methods.append(['cv2.resize', self.args[ind + 1]])
+          # self.methods.append(['imresize',self.args[ind+1]])
+          # self.__setattr__('imresize',cv2.resize)
           self.numfuncs = self.numfuncs+1
         elif not self.ignore_undef:
           print(f'Unknown option (\' {self.args[ind]} \'), ignoring')
@@ -182,10 +183,12 @@ class basic(object):
       for ii in range(self.numfuncs):
         if not self.methods[ii][1]:
           # w/o parameter
-          imout = getattr(self, self.methods[ii][0])(imout)
+          # imout = getattr(self, self.methods[ii][0])(imout)
+          imout = eval(self.methods[ii][0])(imout)
         else:
           # w/ parameter
-          imout = getattr(self, self.methods[ii][0])(imout, self.methods[ii][1])
+          # imout = getattr(self, self.methods[ii][0])(imout, self.methods[ii][1])
+          imout = eval(self.methods[ii][0])(imout, self.methods[ii][1])
 
     return imout
 
@@ -202,14 +205,14 @@ class basic(object):
     
     raise NotImplementedError
 
-  def _builtin_clip(self, img, limits):
-    return builtin_clip(img, limits)
-  def _builtin_normalize(self, img, empty):
-    return builtin_normalize(img, empty)
-  def _builtin_scale(self, img, scparms):
-    return builtin_clip(img, scparms)
-  def _builtin_scaleabout(self, img, scparms):
-    return builtin_clip(img, scparms)
+  # def _builtin_clip(self, img, limits):
+  #   return builtin_clip(img, limits)
+  # def _builtin_normalize(self, img, empty):
+  #   return builtin_normalize(img, empty)
+  # def _builtin_scale(self, img, scparms):
+  #   return builtin_clip(img, scparms)
+  # def _builtin_scaleabout(self, img, scparms):
+  #   return builtin_clip(img, scparms)
 
 #============================= builtin_clip ============================
 #
