@@ -20,7 +20,10 @@
 
 #==[0] Prep environment
 #
-import improcessor.basic as improcessor
+import sys
+sys.path.append('..')
+from improcessor import basic as improcessor
+# import improcessor.basic as improcessor
 import cv2
 
 Image = cv2.imread('lena.png')

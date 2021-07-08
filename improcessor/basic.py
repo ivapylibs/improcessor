@@ -83,7 +83,6 @@ import sys
 import inspect
 import types
 import operator
-
 # @classf improcessor
 class basic(object):
 
