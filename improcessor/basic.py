@@ -136,7 +136,7 @@ class basic(object):
 
   #================================ set ================================
   #
-  # @brief  Set parameters/member variables of the improcessor.
+  # @brief  Reset parameters/member variables of the improcessor.
   #
 
   def set(self, fname, args):
@@ -146,6 +146,8 @@ class basic(object):
       self.ignore_undef = args
     elif fname == 'processing':
         self.args = args
+        self.methods = []
+        self.numfuncs = 0
         self._setProcess()
 
   #================================ get ================================
@@ -153,7 +155,7 @@ class basic(object):
   # @brief  Get parameters/member variables of the improcessor.
   #
 
-  def get(self, fname, args):
+  def get(self, fname):
 
     if fname == 'ignore':
       fval = self.ignore_undef
