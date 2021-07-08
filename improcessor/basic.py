@@ -88,7 +88,7 @@ class basic(object):
     self.args = args
     self.numfuncs = 0
     self.methods  = []
-    self.ignore_undef = False      #< Ignore undefined functions?
+    self.ignore_undef = False
     self._setProcess()
 
   #------------------------------- _setProcess ------------------------------
@@ -146,8 +146,9 @@ class basic(object):
       self.ignore_undef = args
     elif fname == 'processing':
         self.args = args
-        self.methods = []
         self.numfuncs = 0
+        self.methods = []
+        self.ignore_undef = False
         self._setProcess()
 
   #================================ get ================================
