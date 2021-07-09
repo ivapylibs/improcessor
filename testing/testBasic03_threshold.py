@@ -27,7 +27,8 @@ import numpy as np
 import improcessor.basic as improcessor
 import operator
 
-cpath = os.getcwd()
+fpath = os.path.realpath(__file__)
+cpath = fpath.rsplit('/', 1)[0]
 Image = cv2.imread(cpath+'/lena.png')
 newImage_list = []
 
