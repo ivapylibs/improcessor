@@ -57,6 +57,5 @@ for i in range(len(newImage_list)):
   else:
     print('Error found!')
 
-
 #
 #=========================== testBasic02_usage ===========================

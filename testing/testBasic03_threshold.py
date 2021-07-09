@@ -1,9 +1,9 @@
-#=============================== testBasic02_threshold ==============================
+#=============================== testBasic03_threshold ==============================
 #
 # @brief    Code to create an image interface and then use it to process
-#           the source image (threshold)
+#           the source image (threshold).
 #
-#=============================== testBasic02_threshold ==============================
+#=============================== testBasic03_threshold ==============================
 
 #
 # @file     testBasic02_threshold.py
@@ -16,7 +16,7 @@
 #!  Tab is set to 4 spaces with conversion to spaces.
 #
 # @quit
-#=============================== testBasic02_threshold ==============================
+#=============================== testBasic03_threshold ==============================
 
 #==[0] Prep environment
 #
@@ -46,3 +46,6 @@ for i in range(len(newImage_list)):
     cv2.waitKey()
   else:
     print('Error found!')
+
+#
+#=============================== testBasic03_threshold ==============================

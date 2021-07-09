@@ -1,9 +1,9 @@
-#=============================== testBasic02_threshold ==============================
+#=============================== testBasic01_usage ==============================
 #
 # @brief    Code to create an image interface and then use it to process
-#           the source image (threshold)
+#           the source image. Use built-in functions.
 #
-#=============================== testBasic02_threshold ==============================
+#=============================== testBasic01_usage ==============================
 
 #
 # @file     testBasic02_threshold.py
@@ -74,4 +74,7 @@ outIm = improc.apply(image)
 
 print("2/8 values where 0/10 values were:\n")
 print(outIm)
+
+#
+#=============================== testBasic01_usage ==============================
 
