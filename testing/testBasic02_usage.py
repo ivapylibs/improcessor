@@ -21,6 +21,7 @@
 #==[0] Prep environment
 #
 import cv2
+import improcessor.basic as improcessor
 
 Image = cv2.imread('lena.png')
 newImage_list = []
@@ -36,7 +37,7 @@ newImage_list.append(improc.apply(Image))
 
 #==[3] Reset the methods
 #
-improc.set('processing',improcessor.basic.clip,((2,20),)])
+improc.set('processing',improcessor.basic.clip,((2,20),))
 newImage_list.append(improc.apply(Image))
 
 #==[4] Directly apply the builtin methods

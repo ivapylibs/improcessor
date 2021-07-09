@@ -22,13 +22,15 @@
 #
 import cv2
 import numpy as np
+import improcessor.basic as improcessor
+import operator
 
 Image = cv2.imread('lena.png')
 newImage_list = []
 
 #==[1] Create the interface class and apply the methods
 #
-improc = improcessor.basic(cv.threshold,(127,255,cv2.THRESH_BINARY))
+improc = improcessor.basic(cv2.threshold,(127,255,cv2.THRESH_BINARY))
 newImage_list.append(improc.apply(Image)[1])
 
 #==[2] Create the interface class and apply the methods
