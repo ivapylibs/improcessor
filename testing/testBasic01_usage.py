@@ -21,6 +21,8 @@
 
 #==[0] Prep environment
 #
+import os
+from pathlib import PurePath
 import numpy as np
 import operator
 import improcessor.basic as improcessor
@@ -83,5 +85,4 @@ if __name__ == "__main__":
   runTest()
 
 #
-#=============================== testBasic01_usage ==============================
-
+#=========================== testBasic01_usage ===========================

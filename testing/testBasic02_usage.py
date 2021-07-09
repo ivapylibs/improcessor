@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #=========================== testBasic02_usage ===========================
 #
 # @brief    Code to create an image interface and then use it to process
@@ -21,10 +22,12 @@
 
 #==[0] Prep environment
 #
+import os
 import cv2
 import improcessor.basic as improcessor
 
-Image = cv2.imread('lena.png')
+cpath = os.getcwd()
+Image = cv2.imread(cpath+'/lena.png')
 newImage_list = []
 
 #==[1] Create the interface class, you can also try any opencv functions based on the needs

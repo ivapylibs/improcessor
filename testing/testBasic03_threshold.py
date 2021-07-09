@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #========================= testBasic03_threshold =========================
 #
 # @brief    Code to create an image interface and then use it to process
@@ -20,12 +21,14 @@
 
 #==[0] Prep environment
 #
+import os
 import cv2
 import numpy as np
 import improcessor.basic as improcessor
 import operator
 
-Image = cv2.imread('lena.png')
+cpath = os.getcwd()
+Image = cv2.imread(cpath+'/lena.png')
 newImage_list = []
 
 #==[1] Create the interface class and apply the methods
