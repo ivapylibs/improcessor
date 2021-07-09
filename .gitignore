@@ -103,3 +103,4 @@ ENV/
 # IDE environment
 .vscode
 .idea
+.run
