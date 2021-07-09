@@ -20,10 +20,6 @@
 
 #==[0] Prep environment
 #
-import sys
-sys.path.append('..')
-from improcessor import basic as improcessor
-# import improcessor.basic as improcessor
 import cv2
 import numpy as np
 
@@ -32,12 +28,12 @@ newImage_list = []
 
 #==[1] Create the interface class and apply the methods
 #
-improc = improcessor.basic('threshold',(127,255,cv2.THRESH_BINARY))
+improc = improcessor.basic(cv.threshold,(127,255,cv2.THRESH_BINARY))
 newImage_list.append(improc.apply(Image)[1])
 
 #==[2] Create the interface class and apply the methods
 #
-improc = improcessor.basic('operator.ge',(127,))
+improc = improcessor.basic(operator.ge,(127,))
 newImage_list.append(np.array(improc.apply(Image)).astype('uint8')*255)
 
 #==[3] Display the results

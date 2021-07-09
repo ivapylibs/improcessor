@@ -1,12 +1,12 @@
-#=============================== testBasic01_usage ==============================
+#=========================== testBasic02_usage ===========================
 #
 # @brief    Code to create an image interface and then use it to process
-#           the source image
+#           the source image. Uses openCV resize function.
 #
-#=============================== testBasic01_usage ==============================
+#=========================== testBasic02_usage ===========================
 
 #
-# @file     testBasic01_usage.py
+# @file     testBasic02_usage.py
 #
 # @author   Yunzhi Lin, yunzhi.lin@gatech.edu
 # @date     2021/07/07 [created]
@@ -16,14 +16,10 @@
 #!  Tab is set to 4 spaces with conversion to spaces.
 #
 # @quit
-#=============================== testBasic01_usage ==============================
+#=========================== testBasic02_usage ===========================
 
 #==[0] Prep environment
 #
-import sys
-sys.path.append('..')
-from improcessor import basic as improcessor
-# import improcessor.basic as improcessor
 import cv2
 
 Image = cv2.imread('lena.png')
@@ -31,7 +27,8 @@ newImage_list = []
 
 #==[1] Create the interface class, you can also try any opencv functions based on the needs
 #
-improc = improcessor.basic('resize',((400,10),),'clip',((2,100),))
+improc = improcessor.basic(cv2.resize,((400,10),),\
+                           improcessor.basic.clip,((2,100),))
 
 #==[2] Apply the methods
 #
@@ -39,15 +36,14 @@ newImage_list.append(improc.apply(Image))
 
 #==[3] Reset the methods
 #
-# improc.set('ignore',True)
-improc.set('processing',['clip',((2,20),)])
+improc.set('processing',improcessor.basic.clip,((2,20),)])
 newImage_list.append(improc.apply(Image))
 
 #==[4] Directly apply the builtin methods
 #
-newImage_list.append(improcessor.builtin_clip(Image, (2,20)))
+newImage_list.append(improcessor.basic.clip(Image, (2,20)))
 
-#==[5] Disaplay the methods
+#==[5] Display the methods
 #
 print(improc.get('processing'))
 
@@ -59,3 +55,7 @@ for i in range(len(newImage_list)):
     cv2.waitKey()
   else:
     print('Error found!')
+
+
+#
+#=========================== testBasic02_usage ===========================
