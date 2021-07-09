@@ -1,7 +1,8 @@
 #=========================== testBasic02_usage ===========================
 #
 # @brief    Code to create an image interface and then use it to process
-#           the source image. Uses openCV resize function.
+#           the source image. Uses openCV resize function and built-in
+#           clipping.
 #
 #=========================== testBasic02_usage ===========================
 
