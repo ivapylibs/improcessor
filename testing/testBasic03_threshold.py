@@ -1,12 +1,12 @@
-#=============================== testBasic03_threshold ==============================
+#========================= testBasic03_threshold =========================
 #
 # @brief    Code to create an image interface and then use it to process
-#           the source image (threshold).
+#           the source image (a grayscale threshold).
 #
-#=============================== testBasic03_threshold ==============================
+#========================= testBasic03_threshold =========================
 
 #
-# @file     testBasic02_threshold.py
+# @file     testBasic03_threshold.py
 #
 # @author   Yunzhi Lin, yunzhi.lin@gatech.edu
 # @date     2021/07/08 [created]
@@ -16,7 +16,7 @@
 #!  Tab is set to 4 spaces with conversion to spaces.
 #
 # @quit
-#=============================== testBasic03_threshold ==============================
+#========================= testBasic03_threshold =========================
 
 #==[0] Prep environment
 #
@@ -30,12 +30,14 @@ newImage_list = []
 
 #==[1] Create the interface class and apply the methods
 #
-improc = improcessor.basic(cv2.threshold,(127,255,cv2.THRESH_BINARY))
+improc = improcessor.basic(cv2.cvtColor, (cv2.COLOR_BGR2GRAY,),\
+                           cv2.threshold,(127,255,cv2.THRESH_BINARY))
 newImage_list.append(improc.apply(Image)[1])
 
 #==[2] Create the interface class and apply the methods
 #
-improc = improcessor.basic(operator.ge,(127,))
+improc = improcessor.basic(cv2.cvtColor, (cv2.COLOR_BGR2GRAY,),\
+                           operator.ge,(127,))
 newImage_list.append(np.array(improc.apply(Image)).astype('uint8')*255)
 
 #==[3] Display the results
@@ -48,4 +50,4 @@ for i in range(len(newImage_list)):
     print('Error found!')
 
 #
-#=============================== testBasic03_threshold ==============================
+#========================= testBasic03_threshold =========================

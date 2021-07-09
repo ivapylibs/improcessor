@@ -1,9 +1,10 @@
-#=============================== testBasic01_usage ==============================
+#!/usr/bin/python3
+#=========================== testBasic01_usage ===========================
 #
 # @brief    Code to create an image interface and then use it to process
 #           the source image. Use built-in functions.
 #
-#=============================== testBasic01_usage ==============================
+#=========================== testBasic01_usage ===========================
 
 #
 # @file     testBasic02_threshold.py
@@ -16,7 +17,7 @@
 #!  Tab is set to 4 spaces with conversion to spaces.
 #
 # @quit
-#=============================== testBasic02_threshold ==============================
+#=========================== testBasic01_usage ===========================
 
 #==[0] Prep environment
 #

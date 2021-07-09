@@ -28,8 +28,8 @@ newImage_list = []
 
 #==[1] Create the interface class, you can also try any opencv functions based on the needs
 #
-improc = improcessor.basic(cv2.resize,((400,10),),\
-                           improcessor.basic.clip,((2,100),))
+improc = improcessor.basic(cv2.resize,((200,200),),\
+                           improcessor.basic.clip,((100,200),))
 
 #==[2] Apply the methods
 #
@@ -37,12 +37,12 @@ newImage_list.append(improc.apply(Image))
 
 #==[3] Reset the methods
 #
-improc.set('processing',improcessor.basic.clip,((2,20),))
+improc.set('processing',improcessor.basic.clip,((100,150),))
 newImage_list.append(improc.apply(Image))
 
 #==[4] Directly apply the builtin methods
 #
-newImage_list.append(improcessor.basic.clip(Image, (2,20)))
+newImage_list.append(improcessor.basic.clip(Image, (100,150)))
 
 #==[5] Display the methods
 #
