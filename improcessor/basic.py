@@ -73,10 +73,10 @@
 # @file     basic.py
 #
 # @author   Patricio A. Vela, pvela@gatech.edu
-# @author   Yunzhi Lin, yunzhi.lin@gatech.edu
+#           Yunzhi Lin, yunzhi.lin@gatech.edu
 # 
 # @date     2021/07/03 [created]
-# @date     2021/07/07 [modified]
+#           2021/07/07 [modified]
 #
 #=========================== improcessor.basic ===========================
 
