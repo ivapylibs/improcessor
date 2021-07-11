@@ -197,6 +197,29 @@ class basic(object):
   
     return nimg
 
+
+  #============================= clipTails =============================
+  #
+  # @brief  Clip the extremal values given as a percentage of the
+  #         pixels in the image. Finds thresholds for the value at the
+  #         x-percentile and the (1-x)-percentile, then applies them.
+  #
+  # @param[in]  img     The scalar valued image.
+  #
+  @staticmethod
+  def clipTails(img, x):
+
+    ivec = img.flatten()
+    N    = ivec.size
+    svec = np.sort(ivec) 
+
+    Tlo = svec[int(N*.05)]
+    Thi = svec[int(N*.95)]
+
+    nimg = np.clip(img, Tlo, Thi);
+
+    return nimg
+
   #============================= normalize =============================
   #
   @staticmethod
