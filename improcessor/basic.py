@@ -230,3 +230,14 @@ class basic(object):
     nimg = scparms[1]*(img-minI)/(maxI-minI) + scparms[0] - scparms[1]/2
 
     return nimg
+
+    # ============================= to_uint8 ============================
+    #
+
+  @staticmethod
+  def to_uint8(img):
+
+    nimg = img.astype('uint8')
+
+    return nimg
+
