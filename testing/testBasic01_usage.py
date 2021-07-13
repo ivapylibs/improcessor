@@ -7,7 +7,7 @@
 #=========================== testBasic01_usage ===========================
 
 #
-# @file     testBasic02_threshold.py
+# @file     testBasic01_usage.py
 #
 # @author   Yunzhi Lin, yunzhi.lin@gatech.edu
 # @date     2021/07/08 [created]
