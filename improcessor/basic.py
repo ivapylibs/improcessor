@@ -85,6 +85,7 @@ import sys
 import inspect
 import types
 
+import cv2
 
 # @classf improcessor
 class basic(object):
@@ -229,6 +230,15 @@ class basic(object):
     minI = np.min(img)
     maxI = np.max(img)
     nimg = (img-minI)/(maxI-minI)
+
+    return nimg
+
+  #=============================== thresh ===============================
+  #
+  @staticmethod
+  def thresh(img, scparms):
+
+    _ ,nimg = cv2.threshold(img, scparms[0],scparms[1],scparms[2] )
 
     return nimg
 
