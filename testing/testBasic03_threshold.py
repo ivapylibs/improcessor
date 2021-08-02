@@ -35,8 +35,8 @@ newImage_list = []
 #==[1] Create the interface class and apply the methods
 #
 improc = improcessor.basic(cv2.cvtColor, (cv2.COLOR_BGR2GRAY,),\
-                           cv2.threshold,(127,255,cv2.THRESH_BINARY))
-newImage_list.append(improc.apply(Image)[1])
+                           improcessor.basic.thresh,((127,255,cv2.THRESH_BINARY),))
+newImage_list.append(improc.apply(Image))
 
 #==[2] Create the interface class and apply the methods
 #
