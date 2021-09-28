@@ -85,15 +85,18 @@ class mask(basic):
 
   def __init__(self, *args):
       super().__init__(*args)
+      self.cache = []
     
-  #=============================== apply ===============================
-  #
-  # @brief  Execute the mask processing sequence.
-  #
-  # @param[in]  mask      The mask to process.
-  # @param[out] maskOut   The processed mask.
-  #
-  def apply(self, mask):
+  def apply(self, mask, cache=False):
+    """Execute the mask processing sequence.
+
+    Args:
+        mask (np.ndarray. (H, W)): The mask to process
+        cache (bool, optional): Cache the results in the process or not. Defaults to False.
+
+    Returns:
+        maskOut: The processed mask
+    """
   
     if mask is None or self.numfuncs == 0:
       maskOut = None
@@ -109,8 +112,21 @@ class mask(basic):
           maskOut = self.methods[ii][0](maskOut)
         else:                                   # w/ parameter
           maskOut = self.methods[ii][0](maskOut, *self.methods[ii][1])
+        
+        if cache:
+          self.cache.append(maskOut)
 
     return maskOut
+  
+  def get_cache_results(self):
+    """Get the cached results
+
+    Returns:
+        cache_results[list]: A list of cached results in the processing order
+    """
+    assert len(self.cache) != 0, \
+      "The cached result is empty. Please be sure to turn on the cache option when calling the apply function"
+    return self.cache
   
   @staticmethod
   def getLargestCC(mask):
@@ -141,7 +157,7 @@ class mask(basic):
     Returns:
         maskErode (np.ndarray. (H, W)): The mask after erosion
     """
-    maskErode = cv2.erode(mask.astype(np.uint8), kernel).astype(bool)
+    maskErode = cv2.erode(mask.astype(np.uint8), kernel.astype(np.uint8)).astype(bool)
     return maskErode
   
   @staticmethod
@@ -155,12 +171,13 @@ class mask(basic):
     Returns:
         maskDilate [np.ndarray. (H, W)]: The mask after dilation
     """
-    maskDilate =cv2.dilate(mask.astype(np.uint8), kernel).astype(bool)
+    maskDilate =cv2.dilate(mask.astype(np.uint8), kernel.astype(np.uint8)).astype(bool)
     return maskDilate
 
   @staticmethod
   def opening(mask, kernel):
-    """Morphological opening operation
+    """Morphological opening operation(erode then dilate)
+    This operation can remove small blobs in the mask
 
     Args:
         mask (np.ndarray. (H, W)): The input mask
@@ -169,12 +186,13 @@ class mask(basic):
     Returns:
         maskOpening [np.ndarray. (H, W)]: The mask after Opening operation
     """
-    maskOpening = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_OPEN, kernel).astype(bool)
+    maskOpening = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_OPEN, kernel.astype(np.uint8)).astype(bool)
     return maskOpening
 
   @staticmethod
   def closing(mask, kernel):
-    """Morphological opening operation
+    """Morphological closing operation(dilate then erode)
+    This operation can fill the small holes in the mask
 
     Args:
         mask (np.ndarray. (H, W)): The input mask
@@ -183,5 +201,5 @@ class mask(basic):
     Returns:
         maskClosing [np.ndarray. (H, W)]: The mask after Closing operation
     """
-    maskClosing = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel).astype(bool)
+    maskClosing = cv2.morphologyEx(mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel.astype(np.uint8)).astype(bool)
     return maskClosing 
