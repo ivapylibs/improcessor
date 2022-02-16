@@ -208,16 +208,16 @@ class basic(object):
   # @param[in]  img     The scalar valued image.
   #
   @staticmethod
-  def clipTails(img, x):
+  def clipTails(img, percentage=0.05):
 
     ivec = img.flatten()
     N    = ivec.size
     svec = np.sort(ivec) 
 
-    Tlo = svec[int(N*.05)]
-    Thi = svec[int(N*.95)]
+    Tlo = svec[int(N*percentage)]
+    Thi = svec[int(N*(1-percentage))]
 
-    nimg = np.clip(img, Tlo, Thi);
+    nimg = np.clip(img, Tlo, Thi)
 
     return nimg
 
