@@ -240,7 +240,7 @@ class basic(object):
 
     _ ,nimg = cv2.threshold(img, scparms[0],scparms[1],scparms[2] )
 
-    return nimg
+    return nimg.astype(bool)
 
   #=============================== scale ===============================
   #
