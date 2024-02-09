@@ -175,6 +175,19 @@ class basic(object):
 
     return imout
 
+  #================================ pre ================================
+  #
+  # @brief  Execute pre-processing of given image.
+  #
+  # For the basic class this is the apply. 
+  #
+  # @param[in]  image   The image to process.
+  # @param[out] image   The processed image.
+  #
+  def pre(self, image):
+    
+    return self.apply(image)
+
   #================================ post ===============================
   #
   # @brief  Execute post-processing of given image.
